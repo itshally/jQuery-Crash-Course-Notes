@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery Crash Course | Selectors</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+        <style>
+            body{
+                font-size: 15pt;
+                font-family: Helvetica;
+                background-color: #FFFFFF;
+                line-height: 1.5em;
+            }
+            header{
+                background-color: #8BA1B2;
+                color: #D6DDE3;
+                padding: 20px;
+                text-align: center;
+                border-bottom: 4px #D6DDE3 solid;
+                margin-bottom: 10px;
+            }
+            #container{
+                width: 90%;
+                margin: auto;
+                padding: 10px;
+            }
+        </style>    
+    </head>
+    <body>
+        <header>
+            <h1>jQuery Crash Course | Intro & Selectors</h1>
+        </header>
+        <div id="container">
+            <h1 id="heading1">Heading One</h1>
+            <p id="para1">Nullam in tincidunt ante. Maecenas ac tincidunt tortor, eu interdum arcu. 
+                Vestibulum ut tincidunt odio. Donec et quam enim. Morbi velit lacus, fringilla eget convallis nec, 
+                faucibus at augue. <span>Donec vel diam at dui consequat convallis.</span> Aenean imperdiet auctor interdum. 
+                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+            </p>
+
+            <h1 class="heading2">Heading Two</h1>
+            <p class="para2">Cras eu auctor metus. <span>Quisque nec viverra libero.</span> Etiam finibus vel urna eu porttitor. 
+                Phasellus fringilla commodo ipsum, sed rhoncus urna hendrerit ac. Fusce cursus magna sit amet tellus 
+                aliquam, at congue lorem mattis. Phasellus facilisis dictum semper. Quisque non felis velit.
+            </p>
+
+            <ul id="list">
+                <li>Donec ornare eros vitae turpis tristique pellentesque.</li>
+                <li>Curabitur ut ipsum tincidunt, suscipit augue id, suscipit nibh.</li>
+                <li>Nulla feugiat mauris a odio varius, rhoncus porta arcu porta.</li>
+                <li>Aenean vel libero a dui blandit pretium.</li>
+                <li>Aenean viverra risus non nisl imperdiet interdum.</li>
+                <li>Morbi sed orci et massa consectetur tincidunt ut non purus.</li>
+                <li>Quisque in tellus ultrices, maximus sapien ac, lobortis nulla.</li>
+                <li>Integer cursus nibh vitae arcu rhoncus, quis consectetur metus commodo.</li>
+            </ul>
+
+            <input type="button" value="Click Here">
+            <input type="submit" value="Submit">
+            <input type="text">
+
+            <a href="http://google.com">Google</a>
+            <a href="htttp://yahoo.com">Yahoo</a>
+        </div>
+
+        <!-- Custom Script -->
+        <script>
+            /**
+                - dollar sign "$" represents jQuery
+                - Syntax: $('[inside this quote is the tag name]')
+                        Note:
+                            $('h1#[id name]')  - tag element name with id selector 
+                            $('h1.[class name]') - tag element name with class selector 
+                            $('#[id name]') - id selector only
+                            $('.[class name]') - class selector only
+                Example:
+                    - Using jQuery hide() method with selectors
+                        -- hides all the h1 tags
+                            $('h1').hide();
+
+                        -- hides the h1 tag with the id name of heading1
+                            $('h1#heading1').hide(); or $('#heading1').hide();
+
+                        -- hides the h1 with the class name of heading2
+                            $('h1.heading2').hide(); or $('.heading2').hide();
+
+                        -- hides the input type button with the help of ":"
+                            $(':submit').hide(); - hides the submit button
+                            $(':text').hide(); - hides the text input
+
+                        -- hides everything 
+                            $('*').hide();
+
+                    - Using css() method
+                        -- changes the colour of the text inside the <span></span> of paragraph
+                            $('p span').css('color', '#9FB8CC');
+                        
+                        -- changes the text colour of the first and last list inside the <ul></ul>
+                            $('ul#list li:first').css('color', 'red'); or $('li:first').css('color', 'red');
+                            $('ul#list li:last').css('color', 'blue'); or $('li:last').css('color', 'blue');
+                        
+                        -- adds background-color of all the even unordered list index
+                            $('li:even').css('background-color', 'pink');
+                        
+                        -- adds a background-color of all the odd unordered list index
+                            $('li:odd').css('background-color', 'pink');
+                        
+                        -- removes the list-style for every 3rd index of the list
+                            $('li:nth-child(3n)').css('list-style', 'none');
+
+                        -- selects all the elements with the href attribute and then changes the colour
+                            $('[href]').css('color', 'red');
+                            $('a[href="http://yahoo.com"]').css('color', 'red');     
+            */
+        </script>
+    </body>
+</html>

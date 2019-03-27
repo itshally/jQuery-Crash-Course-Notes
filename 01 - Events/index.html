@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery Crash Course | Events</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+        <style>
+            body{
+                font-size: 15pt;
+                font-family: Helvetica;
+                background-color: #FFFFFF;
+                line-height: 1.5em;
+            }
+            header{
+                background-color: #8BA1B2;
+                color: #D6DDE3;
+                padding: 20px;
+                text-align: center;
+                border-bottom: 4px #D6DDE3 solid;
+                margin-bottom: 10px;
+            }
+            #container{
+                width: 90%;
+                margin: auto;
+                padding: 10px;
+            }
+        </style>    
+    </head>
+    <body>
+        <header>
+            <h1>jQuery Crash Course | Events</h1>
+        </header>
+        <div id="container">
+            <h3>Mouse Events</h3>
+            <button id="btn1" class="btnClass">Button 1</button>
+            <button id="btn2">Button 2</button>
+
+            <p class="para1">
+                Duis velit enim, sodales sed nulla quis, imperdiet ultrices mauris. 
+                Maecenas luctus magna nec neque varius laoreet. In blandit neque quis erat tempor pretium. 
+                Quisque sed justo mattis, facilisis massa a, pulvinar purus. In eget volutpat lacus. 
+                Vestibulum ullamcorper efficitur nunc vehicula mollis. Mauris consequat dolor eget magna 
+                euismod, non gravida libero bibendum. Sed ut erat quam.
+            </p>
+
+            <h1 id="coords"></h1>
+
+            <hr>
+            <form id="form">
+                <label>Name</label><br>
+                <input type="text" id="name" name="name"><br>
+                <label>Email</label><br>
+                <input type="email" id="email" name="email"><br>
+                <label>Gender</label><br>
+                <select id="gender" name="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <!-- Custom Script -->
+        <script>
+            /**
+                - Using click() method
+                    -- creates an alert window when button is clicked
+                        $('#btn1').click(function(){
+                            alert('Button Clicked.')
+                        });
+                
+                - Using ready() method
+                    -- when the script tag is placed inside the <head></head> and trying to 
+                        create a click function without this method for the document, then 
+                        the code will fail to work unless the document is ready
+
+                        Note: 
+                            this method can also be used inside the <body></body> for a good practice too
+                        
+                            $(document).ready(function(){
+                                $('#btn1').click(function(){
+                                    alert('Button Clicked.')
+                                });
+                            });
+                
+                - Using the on() method
+                    -- it takes two parameters. The first is for the event parameter and the second is for the function
+                        $(document).ready(function(){
+                            $('#btn1').on('click', function(){
+                                alert('Button Clicked.')
+                            });
+                        });
+                    
+                    -- adding another method inside the code
+                        Note: this example hides the paragraph when the first button is clicked
+                        $(document).ready(function(){
+                            $('#btn1').on('click', function(){
+                                $('.para1').hide();
+                            });
+                        });
+                
+                - Using the show() method
+                    -- shows the hidden paragraph when the second button is clicked       
+                        $(document).ready(function(){
+                            $('#btn2').on('click', function(){
+                                $('.para1').show();
+                            });
+                        });
+                
+                - Using the toggle() method
+                    -- it hides and shows the paragraph when the first button is clicked multiple times
+                        $(document).ready(function(){
+                            $('#btn1').on('click', function(){
+                                $('.para1').toggle();
+                            });
+                        });
+                
+                - Using the dblclick() method 
+                    -- when the button / any clickable element is clicked twice, it will show or hide the paragraph
+                        with the help of the toggle() method
+                        $('#btn1').dblclick(function(){
+                            $('.para1').toggle();
+                        });
+                
+                - Using the hover() method
+                    -- a hover when the mouse is hovered on the element
+                        $('#btn1').hover(function(){
+                            $('.para1').toggle();
+                        });
+
+                        Note: this code will do nothing because it is not an actual event, but a shorthand syntax for two other events
+                        $('#btn1').on('hover', function(){
+                            $('.para1').toggle();
+                        }); 
+
+                            - the two other events are "mouseenter" and "mouseleave"
+                                $('#btn1').on('mouseenter', function(){
+                                    $('.para1').toggle();
+                                });
+                                $('#btn1').on('mouseleave', function(){
+                                    $('.para1').toggle();
+                                });
+
+                            - another event for this is "mousemove", it keeps toggling while the cursor mouse is moving over the button
+                                 $('#btn1').on('mousemove', function(){
+                                    $('.para1').toggle();
+                                }); 
+                                Note: another example using mousemove with mouse even objects "clientX" and "clientY"
+                                    -- this example shows in the console the coordinates of the cursor when after it clicked the button
+                                        $('#btn1').on('mousemove', function(e){
+                                            console.log('Coordinates: Y : '+ e.clientY + ' X: ' + e.clientX);
+                                        });
+                                    -- this shows in the console every coordinates of the mouse move for the entire document
+                                        $(document).on('mousemove', function(e){
+                                            console.log('Coordinates: Y : '+ e.clientY + ' X: ' + e.clientX);
+                                        });
+
+                                    --- Extra Note: this example shows a very interactive usage of mousemove with the help of html() method
+                                        $(document).on('mousemove', function(e){
+                                            $('#coords').html('Coords: Y: ' + e.clientY + ' X: ' + e.clientX);
+                                        });
+
+                            -- additional two events are "mousedown" and "mouseup"
+                                Note: while the button is clicked down, the paragraph will disappear until it is released then it will appear 
+                                    $('#btn1').on('mousedown', function(){
+                                        $('.para1').toggle();
+                                    });
+                                    $('#btn1').on('mouseup', function(){
+                                        $('.para1').toggle();
+                                    });
+
+                - Passing an optional parameter or creating a click event
+                    -- showing list of click events in the console when the button is clicked
+                        $('#btn1').click(function(e){
+                            console.log(e);
+                        });
+                        Note: looking at the "currentTarget:" event, it shows an information of the event
+                            Example: 
+                                -- this example creates an alert windown once the button is clicked. It also contains
+                                    its id name
+                                    $('#btn1').click(function(e){
+                                        alert(e.currentTarget.id);
+                                    });
+                                
+                                -- this example shows the innerHTML of the button which is the value "Button 1" when it's clicked
+                                    $('#btn1').click(function(e){
+                                        alert(e.currentTarget.innerHTML);
+                                    });
+
+                                -- this example shows the outerHTML of the button which is a line of code for its element when it's clicked
+                                    $('#btn1').click(function(e){
+                                        alert(e.currentTarget.outerHTML);
+                                    });
+
+                                -- this example shows the className of the button which is "btnClass" when it's clicked
+                                    $('#btn1').click(function(e){
+                                        alert(e.currentTarget.className);
+                                    });
+                
+                - Using the focus() method
+                    -- an alert window will appear when an input field is clicked
+                        $('input').focus(function(){
+                            alert('Focus');
+                        });
+                    
+                    -- the input field for name will change its background colour once it's being clicked
+                        $('input').focus(function(){
+                            $('#name').css('background-color', 'pink');
+                        });
+
+                    -- with the help of the keyword "this", it will change the inputs that are being clicked
+                        $('input').focus(function(){
+                            $(this).css('background-color', 'pink');
+                        });
+
+                - Using the blur() method
+                    -- blur() method is the opposite of the focus() method.
+                    -- from the previous last point example, it appears that the input fields are still coloured after being clicked,
+                        but with the help of the blur() method it will change its background colour once the mouse clicked outside the input field
+                        $('input').blur(function(){
+                            $(this).css('background-color', 'transparent');
+                        });
+
+                - Using the keyup() method
+                    -- when any key of the keyboard is being pressed, the console log will show the word 'keyup' and on the left side of it has
+                        an increasing number count
+                        $('input').keyup(function(){
+                            console.log('keyup');
+                        });
+                    
+                    -- for every released key, the example will show a string of what's being typed in the input.
+                        $('input').keyup(function(e){
+                            console.log(e.target.value);
+                        });
+                
+                - Using the change() method
+                    -- for every change of option in a select form, an alert box will appear with the alert's text value
+                        $('#gender').change(function(){
+                            alert('changed');
+                        });
+
+                    -- same function but inside the alert box will contain the value of the selected option
+                        $('#gender').change(function(e){
+                            alert(e.target.value);
+                        });
+
+                - Using the submit() method
+                    -- the form is submitting when the submit button is clicked and it will show the text value of the alert in the console.
+                        This is done with the help of the preventDefault() method 
+                        $('#form').submit(function(e){
+                            e.preventDefault();
+                            console.log('submitted');
+                        });
+
+                - Using the val() method
+                    -- passing the value of the text input for the name to appear in the console
+                        $('#form').submit(function(e){
+                            e.preventDefault();
+                            var name = $('#name').val();  
+                            console.log('submitted');
+                        });
+
+            */     
+        </script>
+    </body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery Crash Course | DOM Manipulation</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+        <style>
+            body{
+                font-size: 15pt;
+                font-family: Helvetica;
+                background-color: #FFFFFF;
+                line-height: 1.5em;
+            }
+            header{
+                background-color: #8BA1B2;
+                color: #D6DDE3;
+                padding: 20px;
+                text-align: center;
+                border-bottom: 4px #D6DDE3 solid;
+                margin-bottom: 10px;
+            }
+            #container{
+                width: 90%;
+                margin: auto;
+                padding: 10px;
+            }
+            .myClass{
+                color: lime;
+                background-color: black;
+            }
+        </style>    
+    </head>
+    <body>
+        <header>
+            <h1>jQuery Crash Course | DOM Manipulation</h1>
+        </header>
+        <div id="container">
+            <button id="btn1">Button 1</button>
+            
+            <p class="para1">This is a paragraph</p>
+            <p class="para2">This is another paragraph</p>
+
+            <div id="myDiv"></div>
+
+            <input type="text" id="newItem">
+
+            <ul id="list">
+                <li>Nam nec metus vehicula, rhoncus ipsum at, finibus diam.</li>
+                <li>Fusce rutrum velit vitae porttitor viverra.</li>
+                <li>Etiam at purus molestie, commodo leo vel, viverra est.</li>
+                <li>Nullam et nibh vitae magna suscipit porttitor ut scelerisque nulla.</li>
+                <li>Donec quis metus ac neque auctor aliquam.</li>
+                <li>Pellentesque quis nunc et turpis maximus tristique at sed elit.</li>
+                <li>Cras ac nibh consequat, faucibus velit vel, convallis urna.</li>
+                <li>Suspendisse hendrerit odio ac eros iaculis, vitae mattis erat efficitur.</li>
+            </ul>
+
+            <a href="http://www.google.com">Google</a>
+
+            <ul id="users">
+
+            </ul>
+        </div>
+
+        <!-- Custom Script -->
+        <script>
+            /**
+                DOM - Document Object Model
+
+                - Using multiple css properties by adding curly brackets inside the css() method
+                    $('.para1').css(
+                        { 
+                            color : 'grey', 
+                            background : 'pink'
+                        }
+                    );
+                
+                - Using addClass() method
+                    -- the created "myClass" style inside the <style></style> was used to style the second 
+                        example of paragraph with the class name of "para2"
+                    -- in short, it adds class to an element
+                        $('.para2').addClass('myClass');
+
+                - Using removeClass() method
+                    -- this method is the opposite of the addClass()
+                        $('.para2').addClass('myClass');
+
+                - Using toggleClass() method
+                    -- the button with the "btn1" id contains the class value for "myClass" style and the 
+                        changes appear every time it is toggled/clicked
+                        $('#btn1').click(function(){
+                            $('.para2').to('myClass');
+                        });
+
+            * Adding and Changing content
+                - Using text() method
+                    -- whatever inside the value of the text() method adds/changes to the appointed element
+                        $('#myDiv').text('Hello world');
+
+                - Using html() method
+                    -- same with the text() method but this one lets to add html tag
+                        $('#myDiv').html('<h1>Hello world</h1>');
+
+                    -- Note: it can also be used to get values with the help of text() method
+                        alert($('#myDiv').text());  - the value, "Hello world", will appear to the console log
+
+                - Using append() method
+                    -- adds the appended value as the last list item
+                        $('ul').append('<li>Append List Item</li>');
+
+                - Using prepend() method
+                    -- opposite of the append(); it adds as the top or first list item
+                        $('ul').prepend('<li>Prepend List Item</li>');
+
+                - Using appendTo() method
+                    -- inserts the selected element's value to the appointed element's value and vice versa
+                        "to the end of the target"
+                        $('.para1').appendTo('.para2');
+
+                - Using prependTo() method 
+                    -- opposite of the appendTo() method; "to the beginning of the target"
+                        $('.para1').prependTo('.para2');
+
+                - Using before() method
+                    -- the value inside this method appears before the selected element
+                        $('ul').before('<h4>This shows before or at the top of the unordered list</h4>');
+
+                - Using after() method
+                    -- the opposite of the before() method
+                        $('ul').after('<h4>This shows after or below of the unordered list</h4>');
+
+                - Using empty() method
+                    -- it seems like it's also the hide() method but what it actually does is it takes all of the
+                        inner elements and for this example, the code <ul></ul> is still there but empty
+                        $('ul').empty();
+
+                - Using detach() method
+                    -- the selected element with this method will be removed. For this example, the entire
+                        unordered list is removed
+                        $('ul').detach();
+                
+                - Using attr() method
+                    -- adds attribute to the element
+                        $('a').attr('target', '_blank'); - this example has two parameters: attribute name and value
+
+                - Using removeAttr() method
+                    -- it removes the attribute of the element
+                        $('a').removeAttr('target');
+
+                - Using wrap() method
+                    -- the selected element will be wrapped with the wrap method's value
+                        $('p').wrap('<h1>') - "each" <p></p> elements will be wrapped inside the <h1></h1> element
+
+                - Using wrapAll() method
+                    -- all of the same element will be wrapped altogether with this method, it doesn't matter
+                        where those elemets are positioned inside the document. It will still be grouped together
+                        $('p').wrapAll('<h1>')
+
+                - This is an example of adding an item to the given list element
+                    -- the entered value in the input text field will be added to the bottom part of the list
+                        since append() method is used, otherwise prepend() is used and always keeps adding to the top part
+                        $('#newItem').keyup(function(e){
+                            var code = e.which;
+
+                            if(code == 13){
+                                e.preventDefault;
+                                $('ul').append('<li>' + e.target.value + '</li>');
+                            }
+                        });
+                
+                - Using each()method 
+                    -- for an array, this is a good method to use as it will loop through it
+    
+                        var myArr = ['Ji Chang Wook', 'Lee Jong Suk', 'Song Joong Ki', 'Park Bo Gum'];
+                        
+                        // it takes two parameters: an index and its value
+                        $.each(myArr, function(i, val){   
+                            $('#users').append('<li>' + val + '</li>')
+                        });
+
+                - Using toArray() method
+                    -- a given list will turn into an array
+                        var newArr = $('#list li').toArray();
+                        console.log(newArr);  - this example makes an array of the element [li, li, li ...]
+                    
+                    -- to get all the list value for each items instead of the "li" element, use the value's 
+                        parameter with "innerHTML"
+                        var newArr = $('#list li').toArray();
+                        $.each(newArr, function(i, val){
+                            console.log(val.innerHTML);  
+                        });
+            */     
+        </script>
+    </body>
+</html>

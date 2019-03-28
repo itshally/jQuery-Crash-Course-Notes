@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery Crash Course | Effects & Animation</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+        <style>
+            body{
+                font-size: 15pt;
+                font-family: Helvetica;
+                background-color: #FFFFFF;
+                line-height: 1.5em;
+            }
+            header{
+                background-color: #8BA1B2;
+                color: #D6DDE3;
+                padding: 20px;
+                text-align: center;
+                border-bottom: 4px #D6DDE3 solid;
+                margin-bottom: 10px;
+            }
+            #container{
+                width: 90%;
+                margin: auto;
+                padding: 10px;
+            }
+            #box{
+                background-color: #333333;
+                color: white;
+                width: 500px;
+                height: 90px;
+                padding: 40px;
+                text-align: center;
+            }
+            #box2{
+                background-color: red;
+                width: 100px;
+                height: 100px;
+                position: relative;
+            }
+        </style>    
+    </head>
+    <body>
+        <header>
+            <h1>jQuery Crash Course | Effects & Animation</h1>
+        </header>
+        <div id="container">
+            <button id="btnFadeOut">Fade Out</button>
+            <button id="btnFadeIn">Fade In</button>
+            <button id="btnFadeTog">Fade Toggle</button>
+
+            <hr>
+
+            <button id="btnSlideUp">Slide Up</button>
+            <button id="btnSlideDown">Slide Down</button>
+            <button id="btnSlideTog">Slide Toggle</button>
+            <button id="btnStop">Stop</button>
+
+            <hr>
+
+            <div id="box">
+                <h1>Hello World</h1>
+            </div>
+
+            <hr>
+
+            <button id="moveLeft">Move Left</button>
+            <button id="moveRight">Move Right</button>
+            <button id="moveAround">Move Around</button>
+
+            <div id="box2"></div>
+        </div>
+
+        <!-- Custom Script -->
+        <script>
+            /**
+                - Using fadeOut() method
+                    -- the created box will fade out once the Fade Out button is clicked
+                        $('#btnFadeOut').click(function(){
+                            $('#box').fadeOut();
+                        });
+
+                    -- add "slow" or "fast" so the speed of fading will adjust a bit
+                        $('#btnFadeOut').click(function(){
+                            $('#box').fadeOut('slow'); 
+                        });
+
+                    -- to have adjusted speed of time, adding a digit is the best option; 
+                        the example fades the box within 3 seconds
+                        $('#btnFadeOut').click(function(){
+                            $('#box').fadeOut(3000);
+                        });
+
+                    -- an optional parameter for the fadeOut() method is a function; after the 
+                        box faded, the value of the Fade Out button will change into "It's gone"
+
+                        $('#btnFadeOut').click(function(){
+                            $('#box').fadeOut(3000, function(){
+                                $('#btnFadeOut').text('It\'s gone');
+                            });
+                        });
+
+                - Using fadeIn() method
+                    -- it's the opposite of the fadeOut() method
+                        $('#btnFadeIn').click(function(){
+                            $('#box').fadeIn();
+                        });
+
+                - Using fadeToggle() method
+                    -- it's a combination of fadeOut() and fadeIn()
+                        $('#btnFadeTog').click(function(){
+                            $('#box').fadeToggle();
+                        });
+
+                - Using slideUp() method
+                    -- the box will have a motion of sliding up ; it can add a value of how long it can 
+                        take just like the fade in and out methods
+                        $('#btnSlideUp').click(function(){
+                            $('#box').slideUp(); 
+                        })
+
+                - Using slideDown() method
+                    -- the opposite of slideUp()
+                        $('#btnSlideDown').click(function(){
+                            $('#box').slideDown(); 
+                        });
+
+                - Using slideToggle() method
+                    -- combination of slideUp() and slideDown()
+                        $('#btnSlideTog').click(function(){
+                            $('#box').slideToggle(); 
+                        });
+
+                - Using the stop() method
+                    -- it stops or pauses the motion or animation
+                        $('#btnStop').click(function(){
+                            $('#box').stop();
+                        });
+
+                - Using animate() method
+                    -- moving the box to the right and left
+                        when the  "Move Right" button is clicked, 
+                        the box2 will be adjusted from the left to 500
+                        $('#moveRight').click(function(){
+                            $('#box2').animate({
+                                left: 500
+                            }); 
+                        });
+                        when the  "Move Left" button is clicked, 
+                        the box2 will be adjusted from its original since the left value is "0"
+                        $('#moveLeft').click(function(){
+                            $('#box2').animate({
+                                left: 0
+                            });
+                        });
+                    -- Note: adding other properties like height, width, opacity ..etc. are possible with
+                            numeric value or a string value like with "pixels" but must be surrounded with 
+                            single/double quotes. Otherwise, it will appear as error value
+                             $('#moveRight').click(function(){
+                                $('#box2').animate({
+                                    left: 500,
+                                    height: '300px',
+                                    width: '300px',
+                                    opacity: '0.5' 
+                                }); 
+                            });
+
+                            $('#moveLeft').click(function(){
+                                $('#box2').animate({
+                                    left: 0,
+                                    height: '100px',
+                                    width: '100px',
+                                    opacity: '1' 
+                                });
+                            });
+
+                    -- the example below is for the button "Move Around"; it has a variable since
+                        the value is used multiple times
+                        $('#moveAround').click(function(){
+                            var box = $('#box2');
+                            
+                            box.animate({
+                                left: 300
+                            });
+
+                            box.animate({
+                                top: 300
+                            });
+
+                            box.animate({
+                                left: 0,
+                                top: 300
+                            });
+
+                            box.animate({
+                                left: 0,
+                                top: 0
+                            });
+                        });
+            */
+        </script>
+    </body>
+</html>

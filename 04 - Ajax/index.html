@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery Crash Course | Ajax</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+        <style>
+            body{
+                font-size: 15pt;
+                font-family: Helvetica;
+                background-color: #FFFFFF;
+                line-height: 1.5em;
+            }
+            header{
+                background-color: #8BA1B2;
+                color: #D6DDE3;
+                padding: 20px;
+                text-align: center;
+                border-bottom: 4px #D6DDE3 solid;
+                margin-bottom: 10px;
+            }
+            #container{
+                width: 90%;
+                margin: auto;
+                padding: 10px;
+            }
+            form{
+                height: auto;
+                width: 10em;
+            }
+            #title{
+                width: 95%;
+                display: block;
+                margin: 0px auto;
+            }
+            textarea{
+                display: block;
+                margin: -15px auto;
+                resize: none;
+                width: 95%;
+            }
+        </style>    
+    </head>
+    <body>
+        <header>
+            <h1>jQuery Crash Course | Ajax</h1>
+        </header>
+        <div id="container">
+            <div id="result">
+                <ul id="users"></ul>
+                <form id="postForm" action="https://jsonplaceholder.typicode.com/posts">
+                    <input type="text" id="title" placeholder="Title"><br>
+                    <textarea placeholder="Body" id="body"></textarea><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+
+        <!-- Custom Script -->
+        <script>
+            /**
+                Ajax - asynchronous Javascript and XML
+                     - it allows to do things like make requests behind the scenes so that there's
+                        no need to refresh the page; just update certain parts of the application
+                     - use to get other HTML pages
+                     - can get json to work with APIs
+                     - can get data and load it
+                     - all kinds of stuff that make post requests 
+
+                - load() method is the easiest but has limitation
+                    -- $('#result').load('test.html');
+                        - it gets and loads the contents from the test.html page to show
+                            in the result div
+                
+                - an alternative way to check is by using the "$.get()" method
+                    -- $.get('test.html', function(data){
+                            $('#result').html(data);
+                        });
+
+                - to check the response or to do something if there's an error
+                    -- $('#result').load('test.html', function(responseTxt, statusTxt, xhr){
+                            if(statusTxt == "success"){
+                                alert('It went fine');
+                            }else if(statusTxt == "error"){
+                                alert('Error: ' + xhr.statusTxt);
+                            }
+                        });
+                
+                - using $.getJSON() method to pass the data from the users.json page
+                    -- $.getJSON('users.json', function(data){
+                            $.each(data, function(i, user){
+                                $('#users').append('<li>' + user.firstName + '</li>');
+                            });
+                        });
+
+                        - the code prints the list of the data for the first name
+
+                - you can check this 3rd party APIs (free)
+                    -- Link: https://jsonplaceholder.typicode.com/
+                    --  this code displays the data from the link
+                        - $.ajax({
+                            method: 'GET',
+                            url: 'https://jsonplaceholder.typicode.com/posts',
+                            dataType: 'json'
+                        }).done(function(data){
+                            $.map(data, function(post){
+                                $('#result').append('<h3>' + post.title + '</h3><p>' + 
+                                    post.body + '</p>');
+                            });
+                        });
+
+                - an example to make a post request
+                    -- the result will appear in the browser's console after submitting
+                    -- $('#postForm').submit(function(e){
+                        e.preventDefault();
+                        var title = $('#title').val();
+                        var body = $('#body').val();
+                        var url = $(this).attr('action');
+
+                        $.post(url, {title:title, body:body}).done(function(data){
+                                console.log('Post Saved');
+                                console.log(data);
+                            });
+                        });
+            */
+        </script>
+    </body>
+</html>
